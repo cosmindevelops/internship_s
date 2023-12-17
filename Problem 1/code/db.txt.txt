@@ -1,0 +1,24 @@
+CREATE TABLE Books (
+    BookId INT PRIMARY KEY IDENTITY,
+    Title NVARCHAR(255),
+    Author NVARCHAR(255),
+    ISBN NVARCHAR(20),
+    Quantity INT
+);
+
+CREATE TABLE Patrons (
+    PatronId INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(255),
+    ContactInformation NVARCHAR(255)
+);
+
+CREATE TABLE BorrowingRecords (
+    BorrowingRecordId INT PRIMARY KEY IDENTITY,
+    BookId INT,
+    PatronId INT,
+    BorrowedDate DATETIME,
+    DueDate DATETIME,
+    ReturnedDate DATETIME NULL,
+    FOREIGN KEY (BookId) REFERENCES Books(BookId),
+    FOREIGN KEY (PatronId) REFERENCES Patrons(PatronId)
+);
