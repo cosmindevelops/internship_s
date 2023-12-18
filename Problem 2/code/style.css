@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.quiz-completed {
+    font-size: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.quiz-container {
+    width: 40%; /* Mărit */
+    min-height: 5rem;
+    background: white;
+    padding: 1rem; /* Mărit */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.quiz-header {
+    margin-bottom: 20px;
+}
+
+.quiz-question {
+    margin-bottom: 20px;
+}
+
+.quiz-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 39%; /* Mărit */
+    max-width: 60%;
+    padding: 10px; /* Mărit */
+}
+
+select {
+    width: 42%; /* Ajustat */
+    max-width: 60%;
+    padding: 10px; /* Ajustat */
+    margin-bottom: 20px; /* Spațiu adăugat */
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}

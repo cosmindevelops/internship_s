@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Online Quiz</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <div class="quiz-container">
+            <h1>Welcome to the Quiz</h1>
+            <input type="text" id="username" placeholder="Enter your name" maxlength="37" /><br /><br />
+            <select id="category">
+                <option value="any">Any Category</option>
+                <option value="9">General Knowledge</option>
+                <option value="23">History</option>
+                <option value="18">Science: Computers</option>
+                <option value="22">Geography</option>
+                <option value="20">Mythology</option>
+                <option value="11">Movies</option>
+                <!-- Adaugă aici restul categoriilor după necesități -->
+            </select>
+            <br />
+            <!-- Checkbox-uri pentru nivelul de dificultate -->
+            <div id="difficulty">
+                <input type="radio" id="easy" name="difficulty" value="easy" checked />
+                <label for="easy">Easy</label>
+                <input type="radio" id="medium" name="difficulty" value="medium" />
+                <label for="medium">Medium</label>
+                <input type="radio" id="hard" name="difficulty" value="hard" />
+                <label for="hard">Hard</label>
+            </div>
+            <br />
+            <button id="start-btn">Start Quiz</button>
+        </div>
+        <script type="module" src="main.js"></script>
+    </body>
+</html>
