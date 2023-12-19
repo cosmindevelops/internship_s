@@ -7,40 +7,44 @@ export class UIManager {
         this.usernameInput = document.getElementById("username")
     }
 
-    displayQuestion(question) {
-        // Golește conținutul actual
+    displayQuestion(question, submitCallback) {
+        // Clear the current content
         this.quizContainer.innerHTML = ""
 
-        // Adaugă întrebarea
+        // Add the question
         const questionElement = document.createElement("div")
         questionElement.className = "quiz-question"
         questionElement.innerText = question.getQuestionText()
         this.quizContainer.appendChild(questionElement)
 
-        // Adaugă fiecare opțiune de răspuns ca un buton
+        // Create a container for the answer buttons
+        const answersContainer = document.createElement("div")
+        answersContainer.className = "quiz-answers"
+        this.quizContainer.appendChild(answersContainer)
+
+        // Add each answer option as a button
         question.getAnswerOptions().forEach((option) => {
             const button = document.createElement("button")
             button.className = "answer-btn"
             button.innerText = option
             button.addEventListener("click", () => {
-                // Logica pentru când un răspuns este selectat
+                // Remove the selected class from all answer buttons
+                document.querySelectorAll(".answer-btn").forEach((btn) => {
+                    btn.classList.remove("answer-btn-selected")
+                })
+
+                // Add the selected class to the clicked button
+                button.classList.add("answer-btn-selected")
+
+                this.selectedAnswer = option // Set the selected answer
             })
-            this.quizContainer.appendChild(button)
+            answersContainer.appendChild(button) // append the button to the answers container
         })
 
-        // Adaugă butonul de trimitere a răspunsului
-        const submitButton = this.createSubmitButton(() => {
-            // Logica pentru trimiterea răspunsului
-        })
+        // Add the submit answer button
+        const submitButton = this.createSubmitButton(submitCallback)
         this.quizContainer.appendChild(submitButton)
     }
-
-    transformStartButtonToSubmit() {
-        const startButton = document.getElementById('start-btn');
-        startButton.innerText = 'Submit Question';
-        startButton.id = 'submit-answer-btn';
-    }
-
 
     getSelectedCategory() {
         return this.categorySelect.value
@@ -58,31 +62,50 @@ export class UIManager {
         this.quizContainer.innerHTML = ""
     }
 
-    updateQuizHeader(username, score, totalQuestions) {
-        const header = this.createQuizHeader(username, score, totalQuestions)
-        this.quizContainer.appendChild(header)
+    createSubmitButton(submitCallback) {
+        const submitButton = document.createElement("button")
+        submitButton.id = "submit-answer"
+        submitButton.textContent = "Submit Answer"
+        submitButton.addEventListener("click", () => {
+            submitCallback(this.selectedAnswer)
+        })
+        return submitButton
     }
 
-    createQuizHeader(username, score, totalQuestions) {
-        const header = document.createElement("div")
-        header.className = "quiz-header"
-        header.innerHTML = `<h2>${username}: Score ${score}/${totalQuestions}</h2>`
-        return header
+    displayScoreboard(username, score, totalQuestions) {
+        let headerElement = document.querySelector(".quiz-header")
+        headerElement.innerHTML = `<h3>${username}: Score ${score}/${totalQuestions}</h3>`
     }
 
-    createRetryButton() {
-        const retryButton = document.createElement("button")
-        retryButton.textContent = "Try Again"
-        retryButton.id = "retry-button"
-        retryButton.addEventListener("click", () => document.location.reload())
-        return retryButton
-    }
-    
-    createSubmitButton(callback) {
-        const submitButton = document.createElement("button");
-        submitButton.id = "submit-answer";
-        submitButton.textContent = "Submit Answer";
-        submitButton.addEventListener("click", callback);
-        return submitButton;
+    endQuiz(username, score, totalQuestions) {
+        const quizContainer = document.querySelector(".quiz-container")
+        const quizHeader = document.querySelector(".quiz-header")
+
+        if (quizContainer && quizHeader) {
+            quizHeader.style.display = "none"
+            quizContainer.innerHTML = ""
+
+            const endMessage = `🎉Congratulations ${username}, your score is ${score}/${totalQuestions}.🎉`
+            const endMessageElement = document.createElement("div")
+            endMessageElement.innerText = endMessage
+            endMessageElement.className = "end-message"
+
+            quizContainer.appendChild(endMessageElement)
+
+            // Create the "Play Again" button
+            const playAgainButton = document.createElement("button")
+            playAgainButton.innerText = "Play Again"
+            playAgainButton.id = "play-again-btn"
+
+            // Add an event listener to the "Play Again" button
+            playAgainButton.addEventListener("click", () => {
+                location.reload() // This will reload the page
+            })
+
+            // Add the "Play Again" button to the quiz container
+            quizContainer.appendChild(playAgainButton)
+        } else {
+            console.error("Quiz container or header element not found")
+        }
     }
 }

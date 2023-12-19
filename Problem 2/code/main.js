@@ -1,6 +1,6 @@
 import {DataManager} from "./DataManager.js"
 import {Question} from "./Question.js"
-import {Quiz} from "./Quiz.js"
+import {Quiz} from "./quiz.js"
 import {UIManager} from "./UIManager.js"
 import {Scoreboard} from "./Scoreboard.js"
 
@@ -17,12 +17,12 @@ uiManager.generateQuizButton.addEventListener("click", () => {
         return
     }
 
-    dataManager.fetchQuestions(category, difficulty).then(questionData => {
-        const questions = questionData.map((q, index) => new Question(q, index));
-        const scoreboard = new Scoreboard();
-        const quiz = new Quiz(questions, uiManager, scoreboard, username);
-    
-        uiManager.clearQuizContainer();
-        quiz.start();
-    });
+    dataManager.fetchQuestions(category, difficulty).then((questionData) => {
+        const questions = questionData.map((q, index) => new Question(q, index))
+        const scoreboard = new Scoreboard()
+        const quiz = new Quiz(questions, uiManager, scoreboard, username)
+
+        uiManager.clearQuizContainer()
+        quiz.start()
+    })
 })
