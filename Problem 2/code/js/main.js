@@ -1,13 +1,14 @@
 import {DataManager} from "./DataManager.js"
 import {Question} from "./Question.js"
-import {Quiz} from "./quiz.js"
+import {Quiz} from "./Quiz.js"
 import {UIManager} from "./UIManager.js"
 import {Scoreboard} from "./Scoreboard.js"
 
 const uiManager = new UIManager()
+const scoreboard = new Scoreboard()
 const dataManager = new DataManager("https://opentdb.com/api.php")
 
-uiManager.generateQuizButton.addEventListener("click", () => {
+uiManager.startQuizButton.addEventListener("click", () => {
     const username = uiManager.getUsername()
     const category = uiManager.getSelectedCategory()
     const difficulty = uiManager.getSelectedDifficulty()
@@ -19,10 +20,9 @@ uiManager.generateQuizButton.addEventListener("click", () => {
 
     dataManager.fetchQuestions(category, difficulty).then((questionData) => {
         const questions = questionData.map((q, index) => new Question(q, index))
-        const scoreboard = new Scoreboard()
         const quiz = new Quiz(questions, uiManager, scoreboard, username)
 
         uiManager.clearQuizContainer()
-        quiz.start()
+        quiz.startQuiz()
     })
 })

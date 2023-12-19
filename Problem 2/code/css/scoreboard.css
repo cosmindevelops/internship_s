@@ -29,7 +29,7 @@ nav a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 0.875rem 1rem;
     text-decoration: none;
 }
 
@@ -41,7 +41,7 @@ nav a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 1.25rem 0;
 }
 
 thead {
@@ -50,8 +50,8 @@ thead {
 
 th,
 td {
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 0.625rem;
+    border: 0.0625rem solid #ddd;
     text-align: left;
 }
 
@@ -59,16 +59,16 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0 20rem;
-    height: 30rem; /* Ajustează în funcție de înălțimea navbar-ului */
+    height: 30rem;
 }
 
-#scoreboard th, #scoreboard td {
+#scoreboard th,
+#scoreboard td {
     text-align: center;
 }

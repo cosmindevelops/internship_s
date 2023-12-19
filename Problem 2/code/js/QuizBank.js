@@ -4,6 +4,9 @@ export class QuizBank {
         this.initializeQuestions()
     }
 
+    /**
+     * Initializes the array of questions for the QuizBank.
+     */
     initializeQuestions() {
         this.questions = [
             {
@@ -409,6 +412,10 @@ export class QuizBank {
         ]
     }
 
+    /**
+     * Retrieves the questions from the QuizBank.
+     * @returns {Array} The array of questions.
+     */
     getQuestions() {
         return this.questions
     }
