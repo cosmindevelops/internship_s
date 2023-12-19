@@ -11,7 +11,6 @@ export class Quiz {
      * Starts the quiz by resetting the current score, displaying the scoreboard, and displaying the next question.
      */
     startQuiz() {
-        console.log(this.questions)
         this.scoreboard.resetCurrentScore()
         this.uiManager.displayScoreboard(this.username, this.scoreboard.getCurrentScore(), this.questions.length)
         this.displayNextQuestion()
@@ -26,12 +25,11 @@ export class Quiz {
      */
     endQuiz() {
         this.scoreboard.addHighScore(this.username)
-        this.uiManager.endQuiz(this.username, this.scoreboard.getCurrentScore(), this.questions.length)
+        this.uiManager.displayEndOfQuizUI(this.username, this.scoreboard.getCurrentScore(), this.questions.length)
     }
 
     /**
      * Initializes an array of question indices.
-     *
      * @param {number} length - The length of the array.
      * @returns {number[]} - An array of question indices.
      */

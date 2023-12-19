@@ -26,7 +26,7 @@ export class Scoreboard {
      * @param {string} username - The username for which to add the high score.
      */
     addHighScore(username) {
-        if (!this.highScores[username] || this.currentScore > this.highScores[username]) {
+        if (this.currentScore > 0 && (!this.highScores[username] || this.currentScore > this.highScores[username])) {
             this.highScores[username] = this.currentScore
             this.saveHighScores()
         }

@@ -141,7 +141,7 @@ export class UIManager {
      * @param {number} score - The score achieved by the user.
      * @param {number} totalQuestions - The total number of questions in the quiz.
      */
-    endQuiz(username, score, totalQuestions) {
+    displayEndOfQuizUI(username, score, totalQuestions) {
         const quizContainer = document.querySelector(".quiz-container")
         const quizHeader = document.querySelector(".quiz-header")
 
