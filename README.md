@@ -51,8 +51,8 @@ Diagrama de clasă descrie arhitectura sistemului de gestionare a bibliotecii, d
 -   **Metode**:
     -   Gestionarea cărților și generarea rapoartelor.
 
-![Diagrama de Clasă](./Problem 1/images/ClassDiagram.jpg)
-_Diagrama de Clasă_
+<img src="./Problem 1/images/ClassDiagram.jpg" alt="Db Schema" width="500"/>
+<br>
 
 ## Task 2: Relațiile și Structura Bazei de Date
 
