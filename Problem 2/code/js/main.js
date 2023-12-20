@@ -20,6 +20,7 @@ uiManager.startQuizButton.addEventListener("click", () => {
 
     dataManager.fetchQuestions(category, difficulty).then((questionData) => {
         const questions = questionData.map((q, index) => new Question(q, index))
+        console.log(questions)
         const quiz = new Quiz(questions, uiManager, scoreboard, username)
         uiManager.clearQuizContainer()
         quiz.startQuiz()
