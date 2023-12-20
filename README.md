@@ -68,24 +68,24 @@
     -   `checkOutBook(book: Book, patron: Patron)`: void - Coordonează procesul de împrumut al unei cărți către un utilizator.
     -   `updateBookDetails(book: Book, newDetails: BookDetails)`: void - Actualizează detaliile unei cărți existente în sistem.
 
-### Descriere Relații între Clase
+### Descriere relațiilor dintre clase
 
 1. **Relația dintre `Book` și `BorrowingRecord`**:
 
-    - Clasa `Book` este asociată cu clasa `BorrowingRecord` printr-o relație de tipul one-to-many. Aceasta înseamnă că o singură carte (Book) poate fi asociată cu mai multe înregistrări de împrumut (BorrowingRecords), reprezentând fiecare dată când cartea a fost împrumutată de către utilizatori.
+    - Clasa `Book` este asociată cu clasa `BorrowingRecord` printr-o relație de tipul one-to-many. Aceasta înseamnă că o singură carte (`Book`) poate fi asociată cu mai multe înregistrări de împrumut (`BorrowingRecord`).
 
 2. **Relația dintre `Patron` și `BorrowingRecord`**:
 
-    - Clasa `Patron` are de asemenea o relație one-to-many cu `BorrowingRecord`. Un utilizator (Patron) poate avea multiple înregistrări de împrumut asociate cu el, indicând multiplele cărți pe care le-a împrumutat de-a lungul timpului.
+    - Clasa `Patron` are de asemenea o relație one-to-many cu `BorrowingRecord`. Un utilizator (`Patron`) poate avea multiple înregistrări de împrumut asociate cu el, indicând multiplele cărți pe care le-a împrumutat de-a lungul timpului.
 
 3. **Relația dintre `Patron` și `Book` (indirectă prin `BorrowingRecord`)**:
 
-    - În timp ce nu există o legătură directă între `Patron` și `Book` în modelul de clasă, există o relație many-to-many între aceste două clase, mediată de `BorrowingRecord`. Un utilizator poate împrumuta mai multe cărți, și o carte poate fi împrumutată de mai mulți utilizatori, dar aceste interacțiuni sunt urmărite individual prin înregistrări separate de împrumut.
+    - În timp ce nu există o legătură directă între `Patron` și `Book` în modelul de clasă, există o relație many-to-many între aceste două clase, mediată de `BorrowingRecord`. Un utilizator poate împrumuta diverse cărți. Fiecare carte, la rândul ei, poate fi împrumutată de mai mulți utilizatori. Fiecare astfel de împrumut este înregistrat separat.
 
 4. **Interacțiunile cu `LibraryManager`**:
     - `LibraryManager` nu are o relație directă de stocare sau proprietate asupra claselor `Book`, `Patron`, sau `BorrowingRecord`, ci mai degrabă interacționează cu acestea prin metodele sale. `LibraryManager` funcționează ca un coordonator pentru operațiunile de adăugare, eliminare, înregistrare și împrumut ale cărților și utilizatorilor în sistem. Deși nu deține direct obiecte `Book` sau `Patron`, `LibraryManager` este responsabil pentru invocarea operațiunilor care afectează starea și relațiile dintre aceste obiecte.
 
-<img src="./Problem 1/images/ClassDiagram.jpg" alt="Class Diagram" width="500"/>
+<img src="./Problem 1/images/ClassDiagram.jpg" alt="Class Diagram" width="700"/>
 <br>
 
 ### Task 2: Database Schema
@@ -95,29 +95,29 @@
 #### Tabelul `Books`
 
 -   **Atribute**:
-    -   `BookID`: Este cheia primară a tabelului și identificatorul unic pentru fiecare carte. Este o valoare autoincrementată, ceea ce înseamnă că baza de date va genera automat un număr nou și unic pentru fiecare înregistrare adăugată.
-    -   `Title`: O șir de caractere care stochează titlul cărții. Este obligatoriu pentru fiecare înregistrare.
-    -   `Author`: O șir de caractere care stochează numele autorului cărții. Este obligatoriu pentru fiecare înregistrare.
-    -   `ISBN`: Un șir de caractere de lungimea 20, care stochează codul ISBN unic al cărții. Este marcat ca unic, ceea ce înseamnă că fiecare carte trebuie să aibă un ISBN diferit.
-    -   `Quantity`: Un întreg care indică numărul de copii ale cărții disponibile pentru împrumut. Are o restricție care asigură că valoarea nu poate fi negativă.
+    -   `BookID`: Este cheia primară a tabelului și identificatorul unic pentru fiecare carte.
+    -   `Title`: Stochează titlul cărții. Este obligatoriu pentru fiecare înregistrare.
+    -   `Author`: Stochează numele autorului cărții. Este obligatoriu pentru fiecare înregistrare.
+    -   `ISBN`: Un șir de 20 de caractere, care stochează codul ISBN unic al cărții. Este marcat ca unic, ceea ce înseamnă că fiecare carte trebuie să aibă un ISBN diferit.
+    -   `Quantity`: Numărul de copii ale cărții disponibile pentru împrumut. Are o restricție care asigură că valoarea nu poate fi negativă.
 
 #### Tabelul `Patrons`
 
 -   **Atribute**:
-    -   `PatronID`: Este cheia primară și identificatorul unic pentru fiecare patron (utilizator al bibliotecii). Este autoincrementată.
-    -   `Name`: O șir de caractere care stochează numele patronului. Este obligatoriu pentru fiecare înregistrare.
-    -   `ContactInfo`: O șir de caractere opțională care stochează informațiile de contact ale patronului.
-    -   `Balance`: Un număr zecimal care reprezintă totalul de bani datorați de patron, de exemplu, din cauza întârzierilor la returnarea cărților. Are o restricție care asigură că valoarea nu poate fi negativă.
+    -   `PatronID`: Este cheia primară și identificatorul unic pentru fiecare utilizator.
+    -   `Name`: Stochează numele utilizatorului. Este obligatoriu pentru fiecare înregistrare.
+    -   `ContactInfo`: Stochează informațiile de contact ale utilizatorului.
+    -   `Balance`: Un număr care reprezintă totalul de bani datorați de utilizator(din cauza întârzierilor la returnarea cărților). Are o restricție care asigură că valoarea nu poate fi negativă.
 
 #### Tabelul `BorrowingRecords`
 
 -   **Atribute**:
-    -   `RecordID`: Cheia primară și identificatorul unic pentru fiecare înregistrare de împrumut. Este autoincrementată.
-    -   `BookID`: O cheie străină care face referire la `BookID` din tabelul `Books`, legând împrumutul de cartea specifică.
-    -   `PatronID`: O cheie străină care face referire la `PatronID` din tabelul `Patrons`, legând împrumutul de patronul specific.
+    -   `RecordID`: Cheia primară și identificatorul unic pentru fiecare înregistrare de împrumut.
+    -   `BookID`: Un foreign key care face referire la `BookID` din tabelul `Books`, legând împrumutul de cartea specifică.
+    -   `PatronID`: Un foreign key care face referire la `PatronID` din tabelul `Patrons`, legând împrumutul de utilizatorul specific.
     -   `BorrowDate`: Data la care cartea a fost împrumutată. Este obligatoriu pentru fiecare înregistrare.
     -   `ReturnDate`: Data la care cartea este așteptată să fie returnată. Poate fi null dacă cartea nu a fost încă returnată.
-    -   `FineRate`: Un număr zecimal care reprezintă rata amenzii pentru întârzierea returnării cărții. Are o restricție care asigură că valoarea nu poate fi negativă.
+    -   `FineRate`: Un număr care reprezintă rata amenzii pentru întârzierea returnării cărții. Are o restricție care asigură că valoarea nu poate fi negativă.
 
 ### Descriere Relații dintre Tabele
 
@@ -126,7 +126,7 @@
     -   Relația one-to-many între `Books` și `BorrowingRecords` este stabilită prin `BookID`. O carte poate avea multiple înregistrări de împrumut asociate cu ea, dar fiecare înregistrare de împrumut se referă la o singură carte.
 
 -   **Patrons - BorrowingRecords**:
-    -   Relația one-to-many între `Patrons` și `BorrowingRecords` este stabilită prin `PatronID`. Un patron poate avea mai multe înregistrări de împrumut asociate, dar fiecare înregistrare de împrumut se referă la un singur patron.
+    -   Relația one-to-many între `Patrons` și `BorrowingRecords` este stabilită prin `PatronID`. Un utilizator poate avea mai multe înregistrări de împrumut asociate, dar fiecare înregistrare de împrumut se referă la un singur utilizator.
 
 #### Codul SQL pentru Taberele
 
@@ -158,7 +158,7 @@ CREATE TABLE BorrowingRecords (
 );
 ```
 
-<img src="./Problem 1/images/DatabaseDiagram.jpg" alt="Db Diagram" width="500"/>
+<img src="./Problem 1/images/DatabaseDiagram.jpg" alt="Db Diagram" width="700"/>
 <br>
 
 ## Solution 2:
@@ -167,28 +167,28 @@ CREATE TABLE BorrowingRecords (
 
 ### Prezentare Generală
 
-Această Aplicație de Quiz este o aplicație web interactivă și dinamică, care generează și prezintă întrebări din baza de date Open Trivia Database. Este proiectată pentru a menține scorurile, pentru a asigura lipsa repetițiilor întrebărilor și pentru a oferi o experiență atractivă utilizatorului.
+Această Aplicație de Quiz este o aplicație web interactivă și dinamică, care generează și prezintă întrebări din baza de date Open Trivia Database. Este gândită să urmărească scorurile, să evite repetarea întrebărilor și să ofere o experiență captivantă utilizatorilor.
 
 ## Componente
 
 Aplicația constă în mai multe componente cheie:
 
-### 1. `DataManager`
+### 1. Clasa `DataManager`
 
 -   **Responsabilitate**: Gestionarea apelurilor API către Open Trivia Database (`https://opentdb.com/api.php`).
 -   **Funcționalitate**:
     -   Aduce un set de întrebări bazate pe parametri specificați, cum ar fi categoria și dificultatea.
-    -   În cazul unei defecțiuni a API, recuperează un set simulat de întrebări de la clasa `QuizBank`.
+    -   Dacă API-ul prezintă o eroare, obține un set de întrebări simulate din clasa `QuizBank`.
 
-### 2. `Question`
+### 2. Clasa `Question`
 
--   **Responsabilitate**: Reprezintă o singură întrebare din quiz.
+-   **Responsabilitate**: Reprezintă o întrebare din quiz.
 -   **Funcționalitate**:
     -   Maparea datelor JSON din API în clasa `Question`.
     -   Decodifică entitățile HTML pentru a preveni afișarea caracterelor HTML brute.
     -   Amestecă ordinea răspunsurilor pentru fiecare întrebare.
 
-### 3. `Quiz`
+### 3. Clasa `Quiz`
 
 -   **Responsabilitate**: Gestionează logica generală a quiz-ului.
 -   **Funcționalitate**:
@@ -197,37 +197,37 @@ Aplicația constă în mai multe componente cheie:
     -   Gestionează trimiterea răspunsurilor și tranziția între întrebări.
     -   Încheie quiz-ul și apelează `Scoreboard` pentru actualizarea scorurilor.
 
-### 4. `UIManager`
+### 4. Clasa `UIManager`
 
 -   **Responsabilitate**: Gestionează toate interacțiunile UI.
 -   **Funcționalitate**:
     -   Afișează întrebările și opțiunile de răspuns.
     -   Actualizează UI-ul în funcție de interacțiunile utilizatorului (de exemplu, selectarea unui răspuns, trecerea la următoarea întrebare).
-    -   Gestionează afișarea scorurilor și sumarele de la sfârșitul quiz-ului.
+    -   Gestionează afișarea scorurilor de la sfârșitul quiz-ului.
 
-### 5. `Scoreboard`
+### 5. Clasa `Scoreboard`
 
 -   **Responsabilitate**: Urmărește și gestionează scorurile.
 -   **Funcționalitate**:
     -   Incrementează scorul utilizatorului pentru răspunsurile corecte.
     -   Salvează scorurile mari în stocarea locală și le actualizează dacă scorul curent depășește scorurile anterioare.
 
-## Logica Principală (`main.js`)
+## Punct de Pornire (`main.js`)
 
--   Inițializează toate componentele (`DataManager`, `Question`, `Quiz`, `UIManager`, `Scoreboard`).
--   Ascultă evenimentul de începere a quiz-ului și recuperează inputurile utilizatorului (numele de utilizator, categoria, dificultatea).
--   Aduce întrebările folosind `DataManager` și începe quiz-ul folosind clasa `Quiz`.
+-   Inițializează și coordonează componentele principale (`DataManager`, `Question`, `Quiz`, `UIManager`, `Scoreboard`).
+-   Gestionează evenimentul de începere a quiz-ului și procesează inputurile utilizatorului (numele de utilizator, categoria, dificultatea).
+-   Interacționează cu `DataManager` pentru a obține întrebările și inițiază desfășurarea quiz-ului prin clasa `Quiz`.
 
 ## Fluxul Logic
 
-1. **Inițializare**: Inputurile utilizatorului sunt colectate, iar `DataManager` aduce întrebările.
-2. **Start Quiz**: După aducerea cu succes a întrebărilor, clasa `Quiz` se inițializează și începe să prezinte întrebări.
-3. **Gestionarea Întrebărilor**: Fiecare întrebare este prezentată individual. Clasa `Question` asigură că răspunsurile sunt amestecate.
-4. **Interacțiunea Utilizatorului**: Utilizatorii trimit răspunsuri, care sunt procesate pentru a actualiza scorurile și pentru a determina pașii următori.
+1. **Inițializare**: Inputurile utilizatorului sunt colectate. `DataManager` interacționează cu API-ul Open Trivia Database pentru a aduce întrebările.
+2. **Gestionarea Întrebărilor**: Întrebările aduse sunt procesate prin clasa `Question`, care asigură amestecarea răspunsurilor și pregătirea lor pentru prezentare.
+3. **Start Quiz**: După pregătirea întrebărilor, clasa `Quiz` se inițializează și începe prezentarea întrebărilor, gestionând logica întregului quiz.
+4. **Interacțiunea Utilizatorului**: Utilizatorii selectează răspunsul, care este procesat pentru a actualiza scroul și pentru a determina pașii următori.
 5. **Urmărirea Progresului**: Aplicația urmărește numărul de întrebări răspunse și asigură că nu există repetiții.
-6. **Sfârșitul Quiz-ului**: Odată ce toate întrebările sunt răspunse, quiz-ul se încheie. Scorul final este afișat, iar scorurile mari sunt actualizate dacă este necesar.
+6. **Sfârșitul Quiz-ului**: Odată ce toate întrebările sunt răspunse, quiz-ul se încheie. Scorul final este afișat, iar high score-ul utilizatorului este actualizate dacă este necesar.
 
-<img src="./Problem 2/images/quiz5.jpg" alt="Db Schema" width="600"/>
+<img src="./Problem 2/images/quiz5.jpg" alt="Db Schema" width="700"/>
 <br>
 
 ## Task 2: Algorithm Implementation
@@ -263,7 +263,7 @@ constructor(questionData, id) {
 #### 3. Amestecarea Răspunsurilor
 
 -   **Metodă**: Metoda `randomizeAnswerOrder` din clasa `Question` folosește algoritmul de amestecare Fisher-Yates.
--   **Scop**: Pentru a asigura că opțiunile de răspuns sunt prezentate într-o ordine aleatorie pentru fiecare întrebare, prevenind orice modele previzibile.
+-   **Scop**: Această metodă asigură că opțiunile de răspuns sunt prezentate într-o ordine aleatorie pentru fiecare întrebare. Este esențială deoarece răspunsul corect, primit de la API, este inițial separat de cele trei răspunsuri greșite. Fără amestecare, răspunsul corect ar apărea mereu în aceeași poziție (de exemplu, primul sau ultimul), ceea ce ar putea duce la recunoașterea unui model previzibil de către utilizatori. Amestecarea asigură o experiență de quiz echitabilă și imprevizibilă.
 
 ```javascript
     randomizeAnswerOrder() {
@@ -277,7 +277,7 @@ constructor(questionData, id) {
 #### 4. Alegerea unei Întrebări la Întâmplare
 
 -   **Inițializare**:
-    -   Clasa `Quiz` se inițializează cu un array de obiecte întrebare.
+    -   Clasa `Quiz` se inițializează cu un array de obiecte `Question`.
     -   Un array de indici (`remainingIndices`) este creat pentru a urmări ce întrebări au fost utilizate.
 -   **Selectarea Întrebărilor Aleatorii**:
     -   Metoda `getRandomQuestion` selectează un index aleatoriu din `remainingIndices` folosind `getRandomIndex`.
@@ -301,23 +301,25 @@ constructor(questionData, id) {
 #### 5. Afișarea Întrebărilor și Calculul Scorului
 
 -   **Flux**:
-    -   Quiz-ul afișează continuu următoarea întrebare până când toate întrebările din `remainingIndices` sunt epuizate.
+    -   Quiz-ul afișează următoarea întrebare până când toate întrebările sunt epuizate.
 -   **Sfârșitul Quiz-ului**:
-    -   La finalizare, scorul final al utilizatorului este calculat și afișat, reflectând numărul de întrebări la care s-a răspuns corect.
+    -   La finalizare, scorul final al utilizatorului este afișat, reflectând numărul de întrebări la care s-a răspuns corect.
 
-<img src="./Problem 2/images/quiz1.jpg" alt="Db Schema" width="500"/>
+<img src="./Problem 2/images/quiz1.jpg" alt="Db Schema" width="700"/>
 <br>
 
-<img src="./Problem 2/images/quiz2.jpg" alt="Db Schema" width="500"/>
+<img src="./Problem 2/images/quiz2.jpg" alt="Db Schema" width="700"/>
 <br>
 
-<img src="./Problem 2/images/quiz3.jpg" alt="Db Schema" width="500"/>
+<img src="./Problem 2/images/quiz3.jpg" alt="Db Schema" width="700"/>
 <br>
 
-<img src="./Problem 2/images/quiz4.jpg" alt="Db Schema" width="500"/>
+<img src="./Problem 2/images/quiz4.jpg" alt="Db Schema" width="700"/>
 <br>
 
 ## Task 3: Class and Database Representation
+
+## Structura unei posibile aplicații de tipul Quiz(nu structura aplicației de mai sus)
 
 ### Descrierea Claselor
 
@@ -358,7 +360,7 @@ constructor(questionData, id) {
 
     -   `userId`: int - Identificator unic pentru utilizator.
     -   `username`: String - Numele de utilizator.
-    -   `quizHistory`: QuizAttempt[] - O listă de încercări de quiz-uri ale utilizatorului.
+    -   `quizHistory`: QuizAttempt[] - Un istoric al quiz-urilor utilizatorului.
 
 -   **Metode**:
     -   `takeQuiz(quizId: int)`: void - Începe un nou quiz.
@@ -414,7 +416,7 @@ constructor(questionData, id) {
 4. **Interacțiunile cu `QuizManager`:**
     - `QuizManager` acționează ca un intermediar între utilizatori (`User`) și quiz-uri (`Quiz`), neavând o relație de stocare directă cu acestea, ci mai degrabă le manipulează prin metodele sale. Rolul său este de a aloca quiz-uri utilizatorilor, de a urmări progresul și scorurile, și de a gestiona disponibilitatea quiz-urilor. Este centrul de coordonare care facilitează interacțiunile dintre utilizatori și quiz-urile pe care le încearcă sau le-au completat.
 
-<img src="./Problem 2/images/diagram/QuizClassDiagram.jpg" alt="Class Diagram" width="500"/>
+<img src="./Problem 2/images/diagram/QuizClassDiagram.jpg" alt="Class Diagram" width="700"/>
 <br>
 
 ### Fluxul de Date pentru Aplicația Quiz (Happy Path)
@@ -455,46 +457,46 @@ constructor(questionData, id) {
 #### Tabelul `Question`
 
 -   **Atribute**:
-    -   `questionId`: Este cheia primară a tabelului și identificatorul unic pentru fiecare întrebare. Este o valoare autoincrementată, asigurând că fiecare întrebare adăugată primește un număr unic automat.
-    -   `questionText`: Un șir de caractere care stochează textul întrebării. Acest câmp este obligatoriu și nu poate fi lăsat necompletat.
-    -   `correctAnswer`: Un șir de caractere care stochează răspunsul corect la întrebare. Este obligatoriu pentru fiecare înregistrare a întrebării.
+    -   `questionId`: Este cheia primară a tabelului și identificatorul unic pentru fiecare întrebare.
+    -   `questionText`: Stochează textul întrebării. Acest câmp este obligatoriu și nu poate fi lăsat necompletat.
+    -   `correctAnswer`: Stochează răspunsul corect la întrebare. Este obligatoriu pentru fiecare înregistrare a întrebării.
 
 #### Tabelul `QuestionOption`
 
 -   **Atribute**:
     -   `optionId`: Cheia primară a tabelului și identificatorul unic pentru fiecare opțiune de răspuns.
-    -   `questionId`: O cheie străină care face referire la `questionId` din tabelul `Question`, indicând întrebarea căreia îi aparține opțiunea. Acest câmp este obligatoriu.
-    -   `optionText`: Un șir de caractere care stochează textul opțiunii de răspuns. Este obligatoriu pentru fiecare înregistrare a opțiunii.
+    -   `questionId`: Un foreign key care face referire la `questionId` din tabelul `Question`, indicând întrebarea căreia îi aparține opțiunea. Acest câmp este obligatoriu.
+    -   `optionText`: Stochează textul opțiunii de răspuns. Este obligatoriu pentru fiecare înregistrare a opțiunii.
 
 #### Tabelul `Quiz`
 
 -   **Atribute**:
     -   `quizId`: Cheia primară a tabelului și identificatorul unic pentru fiecare quiz.
     -   `currentQuestionIndex`: Un întreg care indică indexul întrebării curente în cadrul quiz-ului. Începe de la 0 și se actualizează pe măsură ce utilizatorul avansează prin întrebări.
-    -   `userScore`: Un întreg care reprezintă scorul curent al utilizatorului pentru quiz-ul respectiv. Începe de la 0 și se actualizează pe măsură ce utilizatorul răspunde corect la întrebări.
+    -   `userScore`: Scorul curent al utilizatorului pentru quiz-ul respectiv. Începe de la 0 și se actualizează pe măsură ce utilizatorul răspunde corect la întrebări.
 
 #### Tabelul `QuizQuestion`
 
 -   **Atribute**:
     -   `id`: Cheia primară a tabelului și identificatorul unic pentru fiecare asociere întrebare-quiz.
-    -   `quizId`: O cheie străină care face referire la `quizId` din tabelul `Quiz`, legând quiz-ul de întrebările sale.
-    -   `questionId`: O cheie străină care face referire la `questionId` din tabelul `Question`, legând întrebarea de quiz-urile în care este inclusă.
+    -   `quizId`: Un foreign key care face referire la `quizId` din tabelul `Quiz`, legând quiz-ul de întrebările sale.
+    -   `questionId`: Un foreign key care face referire la `questionId` din tabelul `Question`, legând întrebarea de quiz-urile în care este inclusă.
 
 #### Tabelul `User`
 
 -   **Atribute**:
     -   `userId`: Cheia primară a tabelului și identificatorul unic pentru fiecare utilizator.
-    -   `username`: Un șir de caractere care stochează numele de utilizator. Este obligatoriu și trebuie să fie unic pentru fiecare utilizator.
+    -   `username`: Stochează numele de utilizator. Este obligatoriu și trebuie să fie unic pentru fiecare utilizator.
 
 #### Tabelul `QuizAttempt`
 
 -   **Atribute**:
     -   `attemptId`: Cheia primară a tabelului și identificatorul unic pentru fiecare încercare de quiz făcută de utilizator.
-    -   `quizId`: O cheie străină care face referire la `quizId` din tabelul `Quiz`, indicând quiz-ul la care se referă încercarea.
-    -   `userId`: O cheie străină care face referire la `userId` din tabelul `User`, indicând utilizatorul care face încercarea de quiz.
-    -   `score`: Un întreg care reprezintă scorul obținut de utilizator în încercarea respectivă.
+    -   `quizId`: Un foreign key care face referire la `quizId` din tabelul `Quiz`, indicând quiz-ul la care se referă încercarea.
+    -   `userId`: Un foreign key care face referire la `userId` din tabelul `User`, indicând utilizatorul care face încercarea de quiz.
+    -   `score`: Scorul obținut de utilizator în încercarea respectivă.
     -   `completed`: Un boolean care indică dacă utilizatorul a completat sau nu quiz-ul.
-    -   `timestamp`: Data și ora când a fost făcută încercarea de quiz, înregistrate cu precizie.
+    -   `timestamp`: Data și ora când a fost făcută terminat quiz-ul.
 
 ### Descriere Relații dintre Tabele
 
@@ -550,7 +552,6 @@ CREATE TABLE QuizQuestion (
 CREATE TABLE User (
     userId INT PRIMARY KEY,
     username VARCHAR(255) NOT NULL
-    -- Alte atribute ale utilizatorului, dacă este necesar
 );
 
 CREATE TABLE QuizAttempt (
@@ -564,5 +565,6 @@ CREATE TABLE QuizAttempt (
     FOREIGN KEY (userId) REFERENCES User(userId)
 );
 ```
-<img src="./Problem 2/images/diagram/QuizDbDiagram.jpg" alt="Db Diagram" width="500"/>
+
+<img src="./Problem 2/images/diagram/QuizDbDiagram.jpg" alt="Db Diagram" width="700"/>
 <br>
