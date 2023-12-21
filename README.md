@@ -417,7 +417,7 @@ constructor(questionData, id) {
 4. **Interacțiunile cu `QuizManager`:**
     - `QuizManager` acționează ca un intermediar între utilizatori (`User`) și quiz-uri (`Quiz`), neavând o relație de stocare directă cu acestea, ci mai degrabă le manipulează prin metodele sale. Rolul său este de a aloca quiz-uri utilizatorilor, de a urmări progresul și scorurile, și de a gestiona disponibilitatea quiz-urilor. Este centrul de coordonare care facilitează interacțiunile dintre utilizatori și quiz-urile pe care le încearcă sau le-au completat.
 
-<img src="./Problem 2/images/diagram/QuizClassDiagram.jpg" alt="Class Diagram" width="700"/>
+<img src="./Problem 2/images/diagram/QuizGameClassDiagram.jpg" alt="Class Diagram" width="700"/>
 <br>
 
 ### Fluxul de Date pentru Aplicația Quiz (Happy Path)
