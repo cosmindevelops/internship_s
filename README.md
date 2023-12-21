@@ -228,6 +228,7 @@ Aplicația constă în mai multe componente cheie:
 6. **Sfârșitul Quiz-ului**: Odată ce toate întrebările sunt răspunse, quiz-ul se încheie. Scorul final este afișat, iar high score-ul utilizatorului este actualizate dacă este necesar.
 
 <img src="./Problem 2/images/quiz5.jpg" alt="Db Schema" width="700"/>
+* Am atasat si o prezentare video. O gasesti in email *
 <br>
 
 ## Task 2: Algorithm Implementation
