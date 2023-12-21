@@ -2,6 +2,7 @@ export class Question {
     constructor(questionData, id) {
         this.id = id
         this.category = questionData.category
+        this.difficulty = questionData.difficulty
         this.text = this.decodeHtmlEntities(questionData.question)
         this.correctAnswer = this.decodeHtmlEntities(questionData.correct_answer)
         this.options = [...(questionData.incorrect_answers ?? []).map((ans) => this.decodeHtmlEntities(ans)), this.correctAnswer]
