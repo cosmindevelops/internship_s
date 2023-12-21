@@ -17,8 +17,8 @@ export class Question {
      */
     randomizeAnswerOrder() {
         for (let i = this.options.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-            ;[this.options[i], this.options[j]] = [this.options[j], this.options[i]]
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.options[i], this.options[j]] = [this.options[j], this.options[i]];
         }
     }
 

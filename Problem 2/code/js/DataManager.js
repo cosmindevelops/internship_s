@@ -1,6 +1,6 @@
 import {QuizBank} from "./QuizBank.js"
 
-const NUMBER_OF_QUESTIONS = 5
+const NUMBER_OF_QUESTIONS = 50
 const FETCH_TIMEOUT = 2000
 
 export class DataManager {
